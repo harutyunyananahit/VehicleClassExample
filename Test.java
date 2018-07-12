@@ -1,13 +1,13 @@
 public class Test
 {
 	public static void main(String[] args) {
-	    Trailor trail = new Trailor(4.5);
+	    Trailer trail = new Trailer(4.5);
       Truck tr = new Truck(2017, "mercedes", 4.5, 5.6);
       Vehicle v = new Boat();
       System.out.println(v.move());
-	    tr.AttachTrailor(trail);
-      tr.DeattachTrailor(trail);
-      tr.DeattachTrailor(trail);
+	    tr.AttachTrailer(trail);
+      tr.DeattachTrailer(trail);
+      tr.DeattachTrailer(trail);
 			System.out.println(tr.getFullLength());
 	}
 }
@@ -18,7 +18,7 @@ abstract class Vehicle
     private String make;
     private double length;
     private double weight;
-
+		
     //default Constructor
     public Vehicle() {}
 
@@ -110,18 +110,18 @@ class Truck extends Vehicle
 		{
 			return this.fullLength;
 		}
-    public void AttachTrailor(Trailor myTrailor)
+    public void AttachTrailer(Trailer myTrailer)
     {
-      if(myTrailor != null)
+      if(myTrailer != null)
       {
-        fullLength += myTrailor.getLength();
+        fullLength += myTrailer.getLength();
       }
     }
-    public void DeattachTrailor(Trailor myTrailor)
+    public void DeattachTrailer(Trailer myTrailer)
     {
-      if(this.getFullLength() > this.getLength() && myTrailor != null)
+      if(this.getFullLength() > this.getLength() && myTrailer != null)
       {
-        fullLength -= myTrailor.getLength();
+        fullLength -= myTrailer.getLength();
       }
       else
         throw new ArithmeticException("No trailer found");
@@ -132,17 +132,17 @@ class Truck extends Vehicle
     }
 }
 
-class Trailor
+class Trailer
 {
     private double length;
 
     //default Constructor
-    public Trailor() {
+    public Trailer() {
       this.length = 0;
     }
 
     //my Constructor
-    public Trailor(double length)
+    public Trailer(double length)
     {
         this.length = length;
     }
