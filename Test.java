@@ -2,10 +2,13 @@ public class Test
 {
 	public static void main(String[] args) {
 	    Trailor trail = new Trailor(4.5);
-      Truck tr = new Truck(2017, "mercedes", 4.5, 5.6, trail);
+      Truck tr = new Truck(2017, "mercedes", 4.5, 5.6);
       Vehicle v = new Boat();
       System.out.println(v.move());
-	    System.out.println(tr.getFullLength());
+	    tr.AttachTrailor(trail);
+      tr.DeattachTrailor(trail);
+      tr.DeattachTrailor(trail);
+			System.out.println(tr.getFullLength());
 	}
 }
 
@@ -91,37 +94,38 @@ class Plane extends Vehicle
 
 class Truck extends Vehicle
 {
-    private Trailor myTrailor;
-
+		private double fullLength = this.getLength();
     //default Constructor
     public Truck()
     {
         super();
     }
 
-    //Constructor without Trailor
+    //my Constructor
     public Truck(int yearModel, String make, double length, double weight)
     {
         super(yearModel, make, length, weight);
     }
-
-    //Constructor with Trailor
-    public Truck(int yearModel, String make, double length, double weight, Trailor myTrailor)
+		public double getFullLength()
+		{
+			return this.fullLength;
+		}
+    public void AttachTrailor(Trailor myTrailor)
     {
-        super(yearModel, make, length, weight);
-        this.myTrailor = myTrailor;
-    }
-
-    public double getFullLength()
-    {
-      if(this.myTrailor != null)
+      if(myTrailor != null)
       {
-        return this.getLength() + myTrailor.getLength();
+        fullLength += myTrailor.getLength();
+      }
+    }
+    public void DeattachTrailor(Trailor myTrailor)
+    {
+      if(this.getFullLength() > this.getLength() && myTrailor != null)
+      {
+        fullLength -= myTrailor.getLength();
       }
       else
-      return this.getLength();
+        throw new ArithmeticException("No trailer found");
     }
-
     public String move()
     {
         return "A track rolls down the road.";
@@ -147,7 +151,7 @@ class Trailor
     {
         length = l;
     }
-    
+
     public double getLength()
     {
         return length;
